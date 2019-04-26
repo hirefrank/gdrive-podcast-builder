@@ -50,11 +50,11 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.2.0)
+    mini_portile2 (2.4.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
     os (0.9.6)
     public_suffix (2.0.5)
     representable (3.0.4)
@@ -78,6 +78,7 @@ DEPENDENCIES
   dropbox-sdk
   espeak-ruby
   google_drive
+  nokogiri (>= 1.8.5)
 
 BUNDLED WITH
    1.17.2

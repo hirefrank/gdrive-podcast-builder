@@ -66,7 +66,7 @@ def combine_mp3s_transfer(staging_folder, dump_folder, bucket, episode)
       if $publish==true
         # Deploy to S3
         puts "Finished deploying mp3 to AWS" 
-        bucket.object("episodes/#{file_name.encrypt(ENV['ENCRYPT_SECRET'])}.mp3").upload_file(final_mp3)
+        bucket.object("episodes/#{file_name.encrypt(ENV['ENCRYPT_SECRET'])}.mp3").upload_file(final_mp3, acl:'public-read')
       end
     end
   end
@@ -119,11 +119,11 @@ def rebuild_feed(bucket, session)
 
   File.open("./staging/#{ENV['PODCAST_FILENAME']}.rss", 'w') { |file| file.write(rss) }
   if $rebuild==true || ($publish==true && $count > 0)
-    bucket.object("#{ENV['PODCAST_FILENAME']}.rss").upload_file("./staging/#{ENV['PODCAST_FILENAME']}.rss")
+    bucket.object("#{ENV['PODCAST_FILENAME']}.rss").upload_file("./staging/#{ENV['PODCAST_FILENAME']}.rss", acl:'public-read')
 
     Dir.foreach('./public') do |item|
       next if item == '.' or item == '..'
-      bucket.object(item).upload_file("./public/#{item}")
+      bucket.object(item).upload_file("./public/#{item}", acl:'public-read')
     end
 
     puts "Updated podcast feed."
